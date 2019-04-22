@@ -1,6 +1,6 @@
-const express = require('express')
-const http = require('http')
-const bodyParser = require('body-parser')
+const express = require('express');
+const http = require('http');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const fs = require('fs');
 const moment = require('moment-timezone');
@@ -24,8 +24,14 @@ app.post('/', function(req, res){
   var kr = moment(currentDate).tz('Asia/Seoul');
   var sendmessage='요청시각: ' + kr.format('YYYY-MM-DD HH:mm:ss') + '\n\n';
   //date 파라미터 처리
-  if (BODY.action.params.date == '내일') currentDate.setDate(currentDate.getDate()+1);
   if (BODY.action.params.date == '어제') currentDate.setDate(currentDate.getDate()-1);
+  if (BODY.action.params.date == '내일') currentDate.setDate(currentDate.getDate()+1);
+  if (BODY.action.params.date == '내일모레') currentDate.setDate(currentDate.getDate()+2);
+  if (BODY.action.params.date == '3일 후') currentDate.setDate(currentDate.getDate()+3);
+  if (BODY.action.params.date == '4일 후') currentDate.setDate(currentDate.getDate()+4);
+  if (BODY.action.params.date == '5일 후') currentDate.setDate(currentDate.getDate()+5);
+  if (BODY.action.params.date == '6일 후') currentDate.setDate(currentDate.getDate()+6);
+  if (BODY.action.params.date == '7일 후') currentDate.setDate(currentDate.getDate()+7);
   kr = moment(currentDate).tz('Asia/Seoul');
   var currentMonth = kr.month()+1;//달
   var currentDay = kr.date(); //일
@@ -44,10 +50,12 @@ app.post('/', function(req, res){
     //분기별로 sendmessage에 급식 넣어줌
     if(BODY.action.params.meal=="아침"){
       if(indexarr[0]==-1) sendmessage+="조식이 없는 날입니다", none=true;
+      else if(indexarr[1]==-1) sendmessage+=text.substring(indexarr[0]-1,);
       else sendmessage+=text.substring(0,indexarr[1]-2);
     }
     else if(BODY.action.params.meal=='점심'){
       if(indexarr[1]==-1) sendmessage+="중식이 없는 날입니다", none=true;
+      else if(indexarr[2]==-1) sendmessage+=text.substring(indexarr[1]-1,);
       else sendmessage+=text.substring(indexarr[1]-1,indexarr[2]-2);
     }
     else if(BODY.action.params.meal=='저녁'){

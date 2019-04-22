@@ -5,7 +5,7 @@ var School = require('node-school-kr');
 var fs = require('fs');
 
 var year=2019
-var month=[1,2,3,4,5,6,7,8,9,10,11,12];
+var month=[4,5];
 
 const school = new School();
 school.init(School.Type.HIGH, School.Region.INCHEON, 'E100002238');
