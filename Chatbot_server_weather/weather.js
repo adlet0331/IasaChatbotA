@@ -24,7 +24,7 @@ app.post('/', function(req, response){
             //console.log($(Listd[0]).text(), '㎍/㎥');
             let Liste = $("div.gMZXLc").find(".Us3eld");
             //console.log($(Liste[0]).text());
-            restring = $(Lista[0]).text()+"\n미세먼지 오염정도: "+$(Listb[0]).text()+"\n"+$(Listc[0]).text()+"\n미세먼지 농도: "+$(Listd[0]).text()+"㎍/㎥\n\n"+$(Liste[0]).text()+"\n\n아침에 미세먼지 오염 정도가 약\n\"100㎍/㎥\"이상이면 운동장 점호를 하지 않습니다.";
+            restring = $(Lista[0]).text()+"\n미세먼지 오염정도: "+$(Listb[0]).text()+"\n"+$(Listc[0]).text()+"\n미세먼지 농도: "+$(Listd[0]).text()+"㎍/㎥\n\n"+$(Liste[0]).text()+"\n\n아침에 미세먼지 오염 정도가 한국기준 100㎍/㎥, WHO기준 50㎍/㎥ 이상이면 운동장 점호를 하지 않습니다.";
             var responseBody = {
                 'version': '2.0',
                  'template': {

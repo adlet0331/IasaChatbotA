@@ -5,10 +5,18 @@ var fs = require('fs');
 var CurrentDate = new Date();
 var kr = moment(CurrentDate).tz('Asia/Seoul');
 
-var year=kr.year();;
-var month=[kr.month()+1,kr.month()+2];
-
-console.log(year, month);
+var year=kr.year();
+var month=[kr.month()+1];
+var currentDate = new Date();
+currentDate.setDate(currentDate.getDate()+7);
+var Month = kr.month()+1;
+if (kr.month()+1<Month){
+    month.pushn(Month);
+}
+currentDate.setDate(currentDate.getDate()-8);
+if (kr.month()+1>Month){
+    month.push(Month);
+}
 
 const school = new School();
 school.init(School.Type.HIGH, School.Region.INCHEON, 'E100002238');
