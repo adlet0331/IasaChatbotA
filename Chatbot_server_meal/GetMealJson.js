@@ -8,13 +8,12 @@ var kr = moment(CurrentDate).tz('Asia/Seoul');
 var year=kr.year();
 var month=[kr.month()+1];
 var currentDate = new Date();
-currentDate.setDate(currentDate.getDate()+7);
+currentDate.setDate(currentDate.getDate());
 var Month = kr.month()+1;
-if (kr.month()+1<Month){
-    month.pushn(Month);
+if (kr.date()>=23){
+    month.pushn(Month+2);
 }
-currentDate.setDate(currentDate.getDate()-8);
-if (kr.month()+1>Month){
+if (kr.date()==1){
     month.push(Month);
 }
 

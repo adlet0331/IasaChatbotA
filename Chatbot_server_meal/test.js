@@ -5,7 +5,7 @@ const moment = require('moment-timezone');
 
 var BODY = {
   "intent": {
-    "id": "dbzyh8xk9m5rcydkqmamkueq",
+    "id": "5cyxnfqmzo7ljcwzibcjzqcy",
     "name": "블록 이름"
   },
   "userRequest": {
@@ -14,13 +14,13 @@ var BODY = {
       "ignoreMe": "true"
     },
     "block": {
-      "id": "dbzyh8xk9m5rcydkqmamkueq",
+      "id": "5cyxnfqmzo7ljcwzibcjzqcy",
       "name": "블록 이름"
     },
     "utterance": "발화 내용",
     "lang": null,
     "user": {
-      "id": "461467",
+      "id": "534498",
       "type": "accountId",
       "properties": {}
     }
@@ -30,12 +30,25 @@ var BODY = {
     "name": "봇 이름"
   },
   "action": {
-    "name": "3gjsgrv4o4",
+    "name": "y1oij1lm0h",
     "clientExtra": null,
     "params": {
       "meal": "점심",
-      "date": "오늘"
+      "date": "내일"
     },
+    "id": "ht8ozyzbifpll72mn6afb2pc",
+    "detailParams": {
+      "meal": {
+        "origin": "점심",
+        "value": "점심",
+        "groupName": ""
+      },
+      "date": {
+        "origin": "내일",
+        "value": "내일",
+        "groupName": ""
+      }
+    }
   }
 }
   //날짜 받아오기
