@@ -2,8 +2,8 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const fs = require('fs');
 const moment = require('moment-timezone');
+var School = require('node-school-kr'); 
 //서버 설정
 var app = new express();
 app.set('port', process.env.PORT || 3000);
@@ -15,7 +15,11 @@ app.use(logger('dev', {}));
 //body-parser 설정
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-//학교 급식
+
+//불러오는 모듈 및 기본 설정들. 건들 ㄴ
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Post 요청 라우팅
 app.post('/', function(req, res){
   //body 받아와서 파라미터 확인 
   var BODY = req.body
@@ -23,6 +27,9 @@ app.post('/', function(req, res){
   var currentDate = new Date();
   var kr = moment(currentDate).tz('Asia/Seoul');
   var sendmessage='요청시각: ' + kr.format('YYYY-MM-DD HH:mm:ss') + '\n\n';
+  //학교 설정 
+  const school = new School();
+  school.init(School.Type.HIGH, School.Region.INCHEON, 'E100002238');
   //date 파라미터 처리
   if (BODY.action.params.date == '어제') currentDate.setDate(currentDate.getDate()-1);
   if (BODY.action.params.date == '내일') currentDate.setDate(currentDate.getDate()+1);
@@ -33,18 +40,15 @@ app.post('/', function(req, res){
   if (BODY.action.params.date == '6일 후') currentDate.setDate(currentDate.getDate()+6);
   if (BODY.action.params.date == '7일 후') currentDate.setDate(currentDate.getDate()+7);
   kr = moment(currentDate).tz('Asia/Seoul');
+  var currentYear = kr.year();
   var currentMonth = kr.month()+1;//달
   var currentDay = kr.date(); //일
   //요청한 날짜 sendmessage에 추가
   sendmessage+=kr.format('MM-DD') + '\n\n';
-  //json 파일 읽어오기
-  var textname = currentMonth + '.json';
-  fs.readFile(textname, function(err, data){
-    if(err) throw err;
-    var meal = JSON.parse(data);
+  school.getMeal(currentYear, currentMonth).then(Meal => {
     var none = false;
     //요청한 날짜를 맨 위에 적음
-    var text = meal[currentDay];
+    var text = Meal[currentDay];
     //각 항목 인덱싱
     var indexarr = [text.indexOf("조식"), text.indexOf("중식"), text.indexOf("석식")];
     //분기별로 sendmessage에 급식 넣어줌
@@ -86,16 +90,13 @@ app.post('/', function(req, res){
   });
 });
 
+//서버 확인 페이지
 app.get('/', function(req, response){
   response.writeHead(200, {"Content-Type": "text/plain"});
   response.end("Test server is running...");
 });
 
-app.get('/master', function(req, res){
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Server Master's name is SHJ");
-})
-
+//서버 실행
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Server running at http://localhost:%d", app.get('port'));
 });

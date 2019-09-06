@@ -9,7 +9,7 @@ const Router = express.Router();
 app.use('/', Router);
 //송도 미세먼지
 client.fetch(
-    "https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%97%B0%EC%88%98%EA%B5%AC+%EC%86%A1%EB%8F%842%EB%8F%99+%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80"
+    "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EC%86%A1%EB%8F%84+%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&oquery=%EC%9D%B8%EC%B2%9C%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&tqi=UUu0dwprvTVsstspvMGssssssvN-008570"
     ,{}
     ,(err, $, res, body)=>{
         var Classes = $("div.main_box.expand").find(".air_detail").children();
